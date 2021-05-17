@@ -96,7 +96,7 @@ class HomeFragment : Fragment() {
                 main_description.text = it.list?.get(0)?.weather?.get(0)?.description
                 val cloudsData = "${it.list?.get(0)?.clouds?.all.toString()} %"
                 clouds.text = cloudsData
-                val windData = "${it.list?.get(0)?.wind?.speed?.toInt().toString()} km/h"
+                val windData = "${it.list?.get(0)?.wind?.deg.toString()} °"
                 wind.text = windData
                 val humidityData = "${it.list?.get(0)?.main?.humidity.toString()} %"
                 humidity.text = humidityData
