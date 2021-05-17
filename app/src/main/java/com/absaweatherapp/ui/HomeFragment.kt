@@ -94,15 +94,18 @@ class HomeFragment : Fragment() {
                 main_temp.text = mainTemp
                 city.text = it.city?.name
                 main_description.text = it.list?.get(0)?.weather?.get(0)?.description
-                val cloudsData = it.list?.get(0)?.clouds?.all.toString()
+                val cloudsData = "${it.list?.get(0)?.clouds?.all.toString()} %"
                 clouds.text = cloudsData
                 val windData = "${it.list?.get(0)?.wind?.speed?.toInt().toString()} km/h"
                 wind.text = windData
                 val humidityData = "${it.list?.get(0)?.main?.humidity.toString()} %"
                 humidity.text = humidityData
-                pressure.text = "${it.list?.get(0)?.main?.pressure.toString()} hPa"
-                visibility.text = it.list?.get(0)?.visibility.toString()
-                sea_level.text = "${it.list?.get(0)?.main?.grnd_level.toString()} m"
+                val pressureData = "${it.list?.get(0)?.main?.pressure.toString()} hPa"
+                pressure.text = pressureData
+                val visibilityData = "${it.list?.get(0)?.visibility.toString()} ft"
+                visibility.text = visibilityData
+                val seaLevelData =  "${it.list?.get(0)?.main?.grnd_level.toString()} hPa"
+                sea_level.text = seaLevelData
 
                 Picasso.get()
                     .load(Constants.IMAGE_URL + it.list?.get(1)?.weather?.get(0)?.icon + "@2x.png")
