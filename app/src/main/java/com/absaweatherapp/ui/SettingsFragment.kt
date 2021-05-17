@@ -47,9 +47,6 @@ class SettingsFragment : Fragment() {
 
     override fun onViewCreated(view : View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as AppCompatActivity).supportActionBar?.title = "Settings"
-        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        (activity as AppCompatActivity).supportActionBar?.setDisplayShowHomeEnabled(true)
         loadData()
         temperature_layout.setOnClickListener {subView->
             val pm = PopupMenu(requireContext(), subView)
