@@ -6,30 +6,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.absaweatherapp.R
 import com.absaweatherapp.adapter.LocationHistoryAdapter
+import com.absaweatherapp.utils.Constants
 import com.absaweatherapp.viewmodel.LocationsViewModel
 import com.google.android.libraries.places.api.Places
 import kotlinx.android.synthetic.main.fragment_settings.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-
 class SettingsFragment : Fragment() {
     private val viewModel by viewModel<LocationsViewModel>()
     private var adapter : LocationHistoryAdapter? = null
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (!Places.isInitialized()) {
-            Places.initialize(this.requireContext(), "AIzaSyAzw4VUVV3j8wqGBtwqXqBhfVNgwf-oKkM")
-        }
-        Places.createClient(this.requireContext())
     }
 
     override fun onCreateView(
@@ -53,8 +47,11 @@ class SettingsFragment : Fragment() {
 
     override fun onViewCreated(view : View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as AppCompatActivity).supportActionBar?.title = "Settings"
+        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        (activity as AppCompatActivity).supportActionBar?.setDisplayShowHomeEnabled(true)
         loadData()
-        unit_name.setOnClickListener {subView->
+        temperature_layout.setOnClickListener {subView->
             val pm = PopupMenu(requireContext(), subView)
             pm.menuInflater.inflate(R.menu.temperature_menu, pm.menu)
             pm.setOnMenuItemClickListener {
@@ -74,19 +71,21 @@ class SettingsFragment : Fragment() {
             }
             pm.show()
         }
+        getHistory()
+    }
 
-        viewModel.getLocations()?.observe(viewLifecycleOwner) {
-            if(it.isNotEmpty()) {
+    private fun getHistory(){
+        viewModel.getHistory()?.observe(viewLifecycleOwner, {
+            if (it.isNotEmpty()) {
                 adapter = LocationHistoryAdapter()
                 recycler_view.setHasFixedSize(true)
                 recycler_view.adapter = adapter
                 adapter?.setData(it)
                 val linearLayoutManager = LinearLayoutManager(requireActivity())
                 recycler_view.layoutManager = linearLayoutManager
-
                 selected_city.text = it[it.size - 1].location
             }
-        }
+        })
     }
 
     companion object{

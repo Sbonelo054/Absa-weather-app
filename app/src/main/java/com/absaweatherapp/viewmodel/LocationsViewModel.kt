@@ -16,7 +16,7 @@ class LocationsViewModel(private val repo : LocationsRepository) : ViewModel() {
         }
     }
 
-    fun getLocations() : LiveData<List<LocationTable>>?{
-        return repo.getLocations()
+    fun getHistory() : LiveData<List<LocationTable>>?{
+        return repo.getHistory()
     }
 }

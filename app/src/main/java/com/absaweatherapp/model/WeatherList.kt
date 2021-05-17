@@ -9,6 +9,5 @@ data class WeatherList(
      var visibility: Int?,
      var pop: Double?,
      var sys: Sys?,
-     var dt_txt: String?,
-     var rain: Rain?
+     var dt_txt: String?
 )

@@ -7,17 +7,17 @@ import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 
 @Database(entities = [LocationTable::class], version = 1, exportSchema = false)
-abstract class WeatherDatabase : RoomDatabase(){
-    abstract fun dao() : WeatherDao
+abstract class LocationsDatabase : RoomDatabase() {
+    abstract fun locationsDao() : LocationsDao
 
     companion object{
         @Volatile
-        private var instance : WeatherDatabase?= null
+        private var instance : LocationsDatabase?= null
 
         @Synchronized
-        fun getInstance(context : Context) : WeatherDatabase?{
+        fun getInstance(context : Context) : LocationsDatabase?{
             if (instance == null) {
-                instance = Room.databaseBuilder(context.applicationContext, WeatherDatabase::class.java, "weather_database")
+                instance = Room.databaseBuilder(context.applicationContext, LocationsDatabase::class.java, "weather_database")
                     .fallbackToDestructiveMigration()
                     .addCallback(callback)
                     .build()

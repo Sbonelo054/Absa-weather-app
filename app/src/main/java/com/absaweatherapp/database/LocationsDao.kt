@@ -6,11 +6,11 @@ import androidx.room.Insert
 import androidx.room.Query
 
 @Dao
-interface WeatherDao {
+interface LocationsDao {
 
-    @Insert()
+    @Insert
     suspend fun saveLocation(table : LocationTable)
 
     @Query("SELECT * FROM location")
-    fun getLocations() : LiveData<List<LocationTable>>?
+    fun getHistory() : LiveData<List<LocationTable>>?
 }

@@ -3,15 +3,15 @@ package com.absaweatherapp.repository
 import android.app.Application
 import androidx.lifecycle.LiveData
 import com.absaweatherapp.database.LocationTable
-import com.absaweatherapp.database.WeatherDao
-import com.absaweatherapp.database.WeatherDatabase
+import com.absaweatherapp.database.LocationsDao
+import com.absaweatherapp.database.LocationsDatabase
 
 class LocationsRepositoryImpl(application : Application) : LocationsRepository {
-    private lateinit var dao : WeatherDao
+    private lateinit var dao : LocationsDao
     init {
-        val database = WeatherDatabase.getInstance(application)
+        val database = LocationsDatabase.getInstance(application)
         if (database != null) {
-            dao = database.dao()
+            dao = database.locationsDao()
         }
     }
 
@@ -19,7 +19,7 @@ class LocationsRepositoryImpl(application : Application) : LocationsRepository {
         dao.saveLocation(locationTable)
     }
 
-    override fun getLocations() : LiveData<List<LocationTable>>? {
-        return dao.getLocations()
+    override fun getHistory() : LiveData<List<LocationTable>>? {
+        return dao.getHistory()
     }
 }
